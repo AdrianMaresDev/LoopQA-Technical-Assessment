@@ -14,6 +14,8 @@ test.describe('Project board task card verification', () => {
         test(`${project}: ${task} is in the ${status} column with tags ${tags.join(', ')}`, async ({ page }) => {
             const projectsPage = new ProjectsPage(page);
             await projectsPage.projectNavButton(project).click();
+            // Confirm the selected project's board is shown
+            await expect(projectsPage.projectHeader(project)).toBeVisible();
             await expect(projectsPage.taskCard(status, task)).toBeVisible();
             for (const tag of tags) {
                 await expect(projectsPage.taskTag(status, task, tag)).toBeVisible();
